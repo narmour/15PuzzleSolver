@@ -1,6 +1,7 @@
 package threesixty.a15puzzle;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +28,14 @@ public class MainMenuFragment extends Fragment {
 
 
         // set on click listeners
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),Game.class);
+                startActivity(i);
 
+            }
+        });
 
 
 
