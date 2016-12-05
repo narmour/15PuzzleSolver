@@ -1,20 +1,15 @@
 package threesixty.a15puzzle;
-
-/**
- * Created by student on 12/1/16.
- */
-
-public class Tile {
-    // tile number
+public class Tile{
     int value;
     boolean blank;
 
-    //constructor takes in value
-    Tile(int v){
-        value  = v;
-        // if v ==0, its the blank tile
-        blank = (v ==0) ? true:false;
+    Tile(int v)
+    {
+        value = v;
+        blank = (v == 0) ? true:false;
     }
-
-
+    Tile(Tile t){
+        this.value = t.value;
+        this.blank = t.blank;
+    }
 }
