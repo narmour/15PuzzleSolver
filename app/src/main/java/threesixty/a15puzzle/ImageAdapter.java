@@ -12,6 +12,7 @@ import android.widget.ImageView;
  */
 
 public class ImageAdapter extends BaseAdapter {
+    // https://cosmos-magazine.imgix.net/file/spina/photo/2603/231115_England_square2.png?ixlib=rails-1.1.0&h=487&w=657
     private Context mContext;
 
     public ImageAdapter(Context c) {

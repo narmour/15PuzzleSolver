@@ -1,15 +1,15 @@
 package threesixty.a15puzzle;
 public class Tile{
     int value;
-    boolean blank;
+    int imgResource;
 
-    Tile(int v)
+    Tile(int v,int img)
     {
         value = v;
-        blank = (v == 0) ? true:false;
+        imgResource = img;
     }
     Tile(Tile t){
         this.value = t.value;
-        this.blank = t.blank;
+        this.imgResource = t.imgResource;
     }
 }
