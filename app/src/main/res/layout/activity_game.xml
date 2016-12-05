@@ -11,10 +11,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="threesixty.a15puzzle.Game">
 
-    <GridLayout
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/grid">
-
-    </GridLayout>
+        android:numColumns="4"
+        android:id="@+id/grid" />
 </RelativeLayout>

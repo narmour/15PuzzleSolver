@@ -2,8 +2,11 @@ package threesixty.a15puzzle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,17 +21,22 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // get tha grid
-        GridLayout gl = (GridLayout)findViewById(R.id.grid);
+        //get tha grid view
+        GridView gridView = (GridView)findViewById(R.id.grid);
+        gridView.setAdapter(new ImageAdapter(this));
 
-        //put some fuckin buttons on the grid
-        /*
-        for(int row = 0;row < 4;row++){
-            for(int col=0;col<4;col++){
-                Button b = new Button(this);
-                gl.addView(b,row,col);
+        //set grid onclick listeners
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(Game.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
             }
-        }
-        */
+        });
+
+
+
+
+
     }
 }
