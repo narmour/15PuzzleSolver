@@ -14,9 +14,7 @@ public class Board extends BaseAdapter{
     // references to our images
     private ArrayList<Tile> brd;
 
-    public int blankIndex;
-
-
+    int blankIndex;
 
 
 
@@ -49,6 +47,27 @@ public class Board extends BaseAdapter{
     boolean isDone(){
         return false;
 
+    }
+
+    // returns number of tiles in the wrong position
+    int hamming(){
+        int n = 0;
+        for(int i =0;i < 16;i++){
+            if(i ==15)
+                if(brd.get(i).value !=0)
+                    n++;
+            else if(brd.get(i).value !=(i +1))
+            n++;
+
+        }
+        return n;
+
+
+    }
+    // read this : http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+    boolean isSolvable(){
+
+        return true;
     }
 
     ArrayList<Integer> getMoves(){
