@@ -19,6 +19,7 @@ public class Game extends AppCompatActivity {
 
     // the game board
     private Board gb;
+    private char[] boardstate = new char[16];
 
     private ArrayList<Integer> validMoves;
 
@@ -43,16 +44,15 @@ public class Game extends AppCompatActivity {
 
 
 
-
         //set grid onclick listeners
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(Game.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
-                Log.d("debug", "asdasda " + validMoves.contains(position));
+                //Log.d("debug", "asdasda " + validMoves.contains(position));
                 if(validMoves.contains(position)){
                     gb.move(gb.blankIndex,position);
+                    Log.d("solveable", "" + gb.isSolvable());
+
                     validMoves =gb.getMoves();
                 }
 
