@@ -26,25 +26,27 @@ public class Board {
     }
 
     Board move(char id) {
+        char[] newstate = state.clone();
         if (id+1 < 16 && state[id+1] == 0) {
-            state[id+1] = state[id];
-            state[id] = 0;
+            newstate[id+1] = newstate[id];
+            newstate[id] = 0;
         }
         else if (id-1 >= 0 && state[id-1] == 0) {
-            state[id-1] = state[id];
-            state[id] = 0;
+            newstate[id-1] = newstate[id];
+            newstate[id] = 0;
         }
         else if (id+4 < 16 && state[id+4] == 0) {
-            state[id+4] = state[id];
-            state[id] = 0;
+            newstate[id+4] = newstate[id];
+            newstate[id] = 0;
         }
         else if (id-4 >= 0 && state[id-4] == 0) {
-            state[id-4] = state[id];
-            state[id] = 0;
+            newstate[id-4] = newstate[id];
+            newstate[id] = 0;
         }
         else {
             return null;
         }
+        return new Board(newstate);
     }
 
 
