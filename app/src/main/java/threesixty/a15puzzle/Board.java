@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.*;
 
 import static android.R.attr.id;
@@ -14,20 +15,23 @@ import static android.R.attr.value;
 import static android.R.attr.y;
 import static android.R.id.empty;
 
-public class Board implements Comparable<Board> {
+public class Board implements Comparable<Board>, Serializable{
     private char[] state = new char[16];
 
+    // constructor. blank is at bottom right
     Board() {
         for(char i = 1; i < 16; i++) {
             state[i-1] = i;
         }
         state[15] = 0;
     }
-
+    //copy constructor
     Board(char[] board) {
         state = board;
     }
 
+
+    // returns new board with move id being made on state.
     Board move(char id) {
         char[] newstate = state.clone();
         if (id+1 < 16 && state[id+1] == 0) {
@@ -108,7 +112,7 @@ public class Board implements Comparable<Board> {
         for(int i =0; i < 16;i++) {
             for (int j = i + 1; j < 16; j++)
                 if (state[i] != 0 && state[j] != 0 && state[i] > state[j]){
-                    Log.d("debug","i: " + state[i] + "j: " + state[j]);
+                    //Log.d("debug","i: " + state[i] + "j: " + state[j]);
                     inversions++;
 
                 }

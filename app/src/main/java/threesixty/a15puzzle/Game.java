@@ -1,5 +1,6 @@
 package threesixty.a15puzzle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -86,11 +87,21 @@ public class Game extends AppCompatActivity {
         Button solvebtn = (Button) findViewById(R.id.solve);
         final TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
 
+
+        final ArrayList<Board> b = new ArrayList<>();
+        b.add(boardstate);
+
         solvebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 statusmsg.setText("solving...");
+                ArrayList<Board> solution = new ArrayList<Board>();
                 new Thread(new SolveThread(Game.this, boardstate)).start();
+
+                //send boardstates to animation activity
+                Intent animation = new Intent(Game.this,Animation.class);
+                animation.putExtra("b",b);
+                startActivity(animation);
             }
         });
 
