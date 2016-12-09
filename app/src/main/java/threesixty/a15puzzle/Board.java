@@ -92,7 +92,9 @@ public class Board {
         return moves;
     }
 
-
+    char at(int i) {
+        return state[i];
+    }
 
 
 

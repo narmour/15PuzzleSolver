@@ -19,9 +19,10 @@ public class Game extends AppCompatActivity {
 
     // the game board
     private BoardDrawable gb;
-    private char[] boardstate = new char[16];
+    private Board boardstate = new Board();
 
-    private ArrayList<Integer> validMoves;
+    //private ArrayList<Integer> validMoves;
+    private char[] validMoves;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,12 @@ public class Game extends AppCompatActivity {
         //get tha grid view
         GridView gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(gb);
+        gb.setBoard(boardstate);
 
         // get valid moves
-        validMoves =gb.getMoves();
+        /*validMoves =gb.getMoves();
         Log.d("debug",Integer.toString(validMoves.get(0)));
-        Log.d("debug", "BLANK INDEX: " + gb.blankIndex);
+        Log.d("debug", "BLANK INDEX: " + gb.blankIndex);*/
 
 
 
@@ -49,12 +51,18 @@ public class Game extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 //Log.d("debug", "asdasda " + validMoves.contains(position));
-                if(validMoves.contains(position)){
-                    gb.move(gb.blankIndex,position);
-                    Log.d("solveable", "" + gb.isSolvable());
+                /*if(validMoves.contains(position)){
+                    boardstate.move(position);
+                    //Log.d("solveable", "" + gb.isSolvable());
 
-                    validMoves =gb.getMoves();
+                    validMoves = boardstate.getMoves();
+                }*/
+                Board newstate = boardstate.move((char)position);
+                if (newstate != null) {
+                    boardstate = newstate;
                 }
+                gb.setBoard(boardstate);
+                gb.notifyDataSetChanged();
 
 
             }

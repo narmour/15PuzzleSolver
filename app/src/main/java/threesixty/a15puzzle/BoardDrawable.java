@@ -14,36 +14,19 @@ public class BoardDrawable extends BaseAdapter {
     //ADAPTER STUFF
     private Context mContext;
     // references to our images
-    private ArrayList<Tile> brd;
-
-    int blankIndex;
-
-
-
+    private ArrayList<Tile> tileImages;
+    Board board;
 
     //constructor, takes in context for base adapter
     BoardDrawable(Context c){
         //base adapter
         mContext = c;
 
-        brd = new ArrayList<Tile>(Arrays.asList(new Tile(1, R.drawable.b_1),
-                new Tile(2,R.drawable.b_2),new Tile(3,R.drawable.b_3),new Tile(4,R.drawable.b_4), new Tile(5,R.drawable.b_5),
-                new Tile(6,R.drawable.b_6), new Tile(7,R.drawable.b_7), new Tile(8,R.drawable.b_8), new Tile(9,R.drawable.b_9),
-                new Tile(10,R.drawable.b_10),new Tile(11,R.drawable.b_11), new Tile(12,R.drawable.b_12), new Tile(13,R.drawable.b_13),
-                new Tile(14,R.drawable.b_14), new Tile(15,R.drawable.b_15),new Tile(0,R.drawable.b_0)));
-
-        blankIndex =15;
-    }
-
-
-    //i = idx of blank
-    //j = idx of tile to move into blank
-    void move(int i, int j){
-        Collections.swap(brd,i,j);
-        blankIndex = j;
-
-        notifyDataSetChanged();
-
+        tileImages = new ArrayList<Tile>(Arrays.asList(new Tile(0,R.drawable.b_0), new Tile(1, R.drawable.b_1),
+                     new Tile(2,R.drawable.b_2),new Tile(3,R.drawable.b_3),new Tile(4,R.drawable.b_4), new Tile(5,R.drawable.b_5),
+                     new Tile(6,R.drawable.b_6), new Tile(7,R.drawable.b_7), new Tile(8,R.drawable.b_8), new Tile(9,R.drawable.b_9),
+                     new Tile(10,R.drawable.b_10),new Tile(11,R.drawable.b_11), new Tile(12,R.drawable.b_12), new Tile(13,R.drawable.b_13),
+                     new Tile(14,R.drawable.b_14), new Tile(15,R.drawable.b_15)));
     }
 
     boolean isDone(){
@@ -51,8 +34,12 @@ public class BoardDrawable extends BaseAdapter {
 
     }
 
+    void setBoard(Board b) {
+        board = b;
+    }
+
     // read this : http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
-    boolean isSolvable(){
+    /*boolean isSolvable(){
         int inversions = 0;
         for(int i =0; i < 16;i++) {
             for (int j = i + 1; j < 16; j++)
@@ -73,10 +60,10 @@ public class BoardDrawable extends BaseAdapter {
             return true;
 
         return false;
-    }
+    }*/
 
     // returns number of tiles in the wrong position
-    int hamming(){
+/*    int hamming(){
         int n = 0;
         for(int i =0;i < 16;i++){
             if(i ==15)
@@ -90,9 +77,9 @@ public class BoardDrawable extends BaseAdapter {
 
 
     }
+*/
 
-
-    ArrayList<Integer> getMoves(){
+    /*ArrayList<Integer> getMoves(){
         ArrayList<Integer> moves = new ArrayList<>();
         for(int i = 0; i < this.brd.size(); i++){
             if(i == blankIndex){
@@ -107,13 +94,14 @@ public class BoardDrawable extends BaseAdapter {
             }
         }
         return moves;
-    }
+    }*/
 
 
 
     //BASE ADAPTER FUNCTIONS
     public int getCount() {
-        return brd.size();
+        //return brd.size();
+        return 16;
     }
 
     public Object getItem(int position) {
@@ -137,7 +125,7 @@ public class BoardDrawable extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(brd.get(position).imgResource);
+        imageView.setImageResource(tileImages.get(board.at(position)).imgResource);
         return imageView;
     }
 
