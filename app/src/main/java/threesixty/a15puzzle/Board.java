@@ -11,15 +11,17 @@ import java.util.*;
 
 import static android.R.attr.id;
 import static android.R.attr.value;
+import static android.R.attr.y;
 import static android.R.id.empty;
 
-public class Board {
+public class Board implements Comparable<Board> {
     private char[] state = new char[16];
 
     Board() {
-        for(char i = 0; i < 16; i++) {
-            state[i] = i;
+        for(char i = 1; i < 16; i++) {
+            state[i-1] = i;
         }
+        state[15] = 0;
     }
 
     Board(char[] board) {
@@ -63,33 +65,38 @@ public class Board {
         char empty = findEmpty();
 
         int size = 0;
-        if (empty+1 < 16 && state[empty+1] == 0) {
+        if (empty % 4 < 3) {
             size++;
         }
-        if (empty-1 >= 0 && state[empty-1] == 0) {
+        if (empty % 4 > 0) {
             size++;
         }
-        if (empty+4 < 16 && state[empty+4] == 0) {
+        if (empty+4 < 16) {
             size++;
         }
-        if (empty-4 >= 0 && state[empty-4] == 0) {
+        if (empty-4 >= 0) {
             size++;
         }
 
+        Log.d("getmoves", "size: " + size);
         char[] moves = new char[size];
 
         int index = 0;
-        if (empty+1 < 16 && state[empty+1] == 0) {
+        if (empty % 4 < 3) {
             moves[index++] = (char)(empty+1);
+            Log.d("getmoves", "move: " + (int)moves[index-1]);
         }
-        if (empty-1 >= 0 && state[empty-1] == 0) {
+        if (empty % 4 > 0) {
             moves[index++] = (char)(empty-1);
+            Log.d("getmoves", "move: " + (int)moves[index-1]);
         }
-        if (empty+4 < 16 && state[empty+4] == 0) {
+        if (empty+4 < 16) {
             moves[index++] = (char)(empty+4);
+            Log.d("getmoves", "move: " + (int)moves[index-1]);
         }
-        if (empty-4 >= 0 && state[empty-4] == 0) {
+        if (empty-4 >= 0) {
             moves[index++] = (char)(empty-4);
+            Log.d("getmoves", "move: " + (int)moves[index-1]);
         }
 
         return moves;
@@ -119,14 +126,22 @@ public class Board {
         return false;
     }
 
+    public boolean isSolved() {
+        return hamming() == 0;
+    }
+
     // returns number of tiles in the wrong position
     int hamming() {
         int n = 0;
-        for(int i =0;i < 16;i++){
-            if (i != state[i]) {
+        for(int i = 0;i < 16;i++){
+            if (state[i] == 0) {
+                continue;
+            }
+            if (i+1 != state[i]) {
                 n++;
             }
         }
+        //Log.d("ham", "hamming: " + n);
         return n;
     }
 
@@ -135,8 +150,18 @@ public class Board {
     }
 
 
+    public int compareTo(Board other) {
+        return hamming() - other.hamming();
+        //return other.hamming() - hamming();
+    }
 
 
-
+    public String toString() {
+        return String.format(Locale.ENGLISH, "B[%2d %2d %2d %2d\n  %2d %2d %2d %2d\n  %2d %2d %2d %2d\n  %2d %2d %2d %2d]",
+                (int)state[0], (int)state[1], (int)state[2], (int)state[3],
+                (int)state[4], (int)state[5], (int)state[6], (int)state[7],
+                (int)state[8], (int)state[9], (int)state[10], (int)state[11],
+                (int)state[12], (int)state[13], (int)state[14], (int)state[15]);
+    }
 
 }

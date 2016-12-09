@@ -12,8 +12,21 @@
     tools:context="threesixty.a15puzzle.Game">
 
     <GridView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:numColumns="4"
         android:id="@+id/grid" />
+
+    <Button
+        android:id="@+id/solve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/grid"
+        android:text="Solve" />
+
+    <TextView
+        android:id="@+id/statusmsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/solve" />
 </RelativeLayout>

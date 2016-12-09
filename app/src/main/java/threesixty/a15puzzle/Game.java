@@ -9,9 +9,13 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
+
+import static threesixty.a15puzzle.R.id.statusmsg;
 
 public class Game extends AppCompatActivity {
     // read this:
@@ -24,6 +28,11 @@ public class Game extends AppCompatActivity {
     //private ArrayList<Integer> validMoves;
     private char[] validMoves;
 
+    public void setSolution(ArrayList<Board> states) {
+        TextView statusmsg = (TextView)findViewById(R.id.statusmsg);
+        statusmsg.setText("solved!");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +44,22 @@ public class Game extends AppCompatActivity {
         gridView.setAdapter(gb);
         gb.setBoard(boardstate);
 
+        Button solvebtn = (Button)findViewById(R.id.solve);
+        final TextView statusmsg = (TextView)findViewById(R.id.statusmsg);
+
+        solvebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusmsg.setText("solving...");
+                new Thread(new SolveThread(Game.this, boardstate)).start();
+            }
+        });
+
+
         // get valid moves
         /*validMoves =gb.getMoves();
         Log.d("debug",Integer.toString(validMoves.get(0)));
         Log.d("debug", "BLANK INDEX: " + gb.blankIndex);*/
-
-
 
 
 
