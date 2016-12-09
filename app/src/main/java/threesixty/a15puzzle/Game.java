@@ -62,7 +62,6 @@ public class Game extends AppCompatActivity {
                     boardstate = newstate;
                 }
                 gb.setBoard(boardstate);
-                gb.notifyDataSetChanged();
 
 
             }

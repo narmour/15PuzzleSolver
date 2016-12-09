@@ -36,6 +36,7 @@ public class BoardDrawable extends BaseAdapter {
 
     void setBoard(Board b) {
         board = b;
+        notifyDataSetChanged();
     }
 
     // read this : http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
