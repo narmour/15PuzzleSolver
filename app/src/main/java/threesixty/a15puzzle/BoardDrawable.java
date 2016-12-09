@@ -29,75 +29,10 @@ public class BoardDrawable extends BaseAdapter {
                      new Tile(14,R.drawable.b_14), new Tile(15,R.drawable.b_15)));
     }
 
-    boolean isDone(){
-        return false;
-
-    }
-
     void setBoard(Board b) {
         board = b;
         notifyDataSetChanged();
     }
-
-    // read this : http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
-    /*boolean isSolvable(){
-        int inversions = 0;
-        for(int i =0; i < 16;i++) {
-            for (int j = i + 1; j < 16; j++)
-                if (i != blankIndex && j!=blankIndex && brd.get(i).value > brd.get(j).value){
-                    Log.d("debug","i: " + brd.get(i).value + "j: " + brd.get(j).value);
-                    inversions++;
-
-                }
-        }
-
-        Log.d("solve","Inversions: " + inversions);
-        int blankrow = blankIndex/4;
-        // if blank is on even row and inversiosn is odd, return true
-        if(blankrow %2 ==0 && inversions %2 ==1)
-            return true;
-            // if blank is on odd row and inversions is even, return true
-        else if(blankrow%2 ==1 && inversions%2 ==0)
-            return true;
-
-        return false;
-    }*/
-
-    // returns number of tiles in the wrong position
-/*    int hamming(){
-        int n = 0;
-        for(int i =0;i < 16;i++){
-            if(i ==15)
-                if(brd.get(i).value !=0)
-                    n++;
-                else if(brd.get(i).value !=(i +1))
-                    n++;
-
-        }
-        return n;
-
-
-    }
-*/
-
-    /*ArrayList<Integer> getMoves(){
-        ArrayList<Integer> moves = new ArrayList<>();
-        for(int i = 0; i < this.brd.size(); i++){
-            if(i == blankIndex){
-                if(i + 1 <= 16)
-                    moves.add(i+1);
-                if(i - 1 >= 0)
-                    moves.add(i-1);
-                if(i + 4 <= 16)
-                    moves.add(i+4);
-                if(i - 4 >= 0)
-                    moves.add(i-4);
-            }
-        }
-        return moves;
-    }*/
-
-
 
     //BASE ADAPTER FUNCTIONS
     public int getCount() {
@@ -129,17 +64,4 @@ public class BoardDrawable extends BaseAdapter {
         imageView.setImageResource(tileImages.get(board.at(position)).imgResource);
         return imageView;
     }
-
-     /*
-    public static void main(String[] args){
-        Board b = new Board();
-        b.printBoard();
-        b.printMoves();
-        System.out.println();
-        b.brd = b.move(0,1);
-        b.printBoard();
-        b.printMoves();
-    }
-    */
-
 }

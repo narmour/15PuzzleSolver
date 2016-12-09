@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import java.util.*;
 
 import static android.R.attr.id;
+import static android.R.attr.value;
 import static android.R.id.empty;
 
 public class Board {
@@ -49,15 +50,17 @@ public class Board {
         return new Board(newstate);
     }
 
-
-    char[] getMoves() {
-        char empty = 0;
+    private char findEmpty() {
         for(char i = 0; i < 16; i++) {
             if (state[i] == 0) {
-                empty = i;
-                break;
+                return i;
             }
         }
+        return (char)-1; // should never happen!
+    }
+
+    char[] getMoves() {
+        char empty = findEmpty();
 
         int size = 0;
         if (empty+1 < 16 && state[empty+1] == 0) {
@@ -90,6 +93,41 @@ public class Board {
         }
 
         return moves;
+    }
+
+    // read this : http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+    boolean isSolvable() {
+        int inversions = 0;
+        for(int i =0; i < 16;i++) {
+            for (int j = i + 1; j < 16; j++)
+                if (state[i] != 0 && state[j] != 0 && state[i] > state[j]){
+                    Log.d("debug","i: " + state[i] + "j: " + state[j]);
+                    inversions++;
+
+                }
+        }
+
+        Log.d("solve","Inversions: " + inversions);
+        int blankrow = findEmpty()/4;
+        // if blank is on even row and inversiosn is odd, return true
+        if(blankrow %2 ==0 && inversions %2 ==1)
+            return true;
+            // if blank is on odd row and inversions is even, return true
+        else if(blankrow%2 ==1 && inversions%2 ==0)
+            return true;
+
+        return false;
+    }
+
+    // returns number of tiles in the wrong position
+    int hamming() {
+        int n = 0;
+        for(int i =0;i < 16;i++){
+            if (i != state[i]) {
+                n++;
+            }
+        }
+        return n;
     }
 
     char at(int i) {
