@@ -52,7 +52,7 @@ public class Board implements Comparable<Board> {
         return new Board(newstate);
     }
 
-    private char findEmpty() {
+    public char findEmpty() {
         for(char i = 0; i < 16; i++) {
             if (state[i] == 0) {
                 return i;

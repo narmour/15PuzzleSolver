@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import android.widget.*;
 
 
-public class Game extends AppCompatActivity{
+public class Game extends AppCompatActivity {
     // read this:
     // https://developer.android.com/guide/topics/ui/layout/gridview.html
 
@@ -20,8 +20,9 @@ public class Game extends AppCompatActivity{
     private Board boardstate = new Board();
     //private ArrayList<Integer> validMoves;
     private char[] validMoves;
+
     public void setSolution(ArrayList<Board> states) {
-        TextView statusmsg = (TextView)findViewById(R.id.statusmsg);
+        TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
         statusmsg.setText("solved!");
     }
 
@@ -35,27 +36,55 @@ public class Game extends AppCompatActivity{
         GridView gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(gb);
         gb.setBoard(boardstate);
-        gridView.setOnTouchListener(new OnSwipeListener(Game.this){
+
+        findViewById(android.R.id.content).setOnTouchListener(new OnSwipeListener(Game.this) {
             public void onSwipeTop() {
-             /*   Board newstate = boardstate.move((char));
-                if (newstate != null) {
-                    boardstate = newstate;
+                char v = isValid(boardstate, "4");
+                if(v != 'N') {
+                    Board newstate = boardstate.move(v);
+                    if (newstate != null) {
+                        boardstate = newstate;
+                    }
+                    gb.setBoard(boardstate);
                 }
-                gb.setBoard(boardstate);
-            */}
+            }
+
             public void onSwipeRight() {
-                Toast.makeText(Game.this, "right", Toast.LENGTH_SHORT).show();
+                char v = isValid(boardstate, "-1");
+                if(v != 'N') {
+                    Board newstate = boardstate.move(v);
+                    if (newstate != null) {
+                        boardstate = newstate;
+                    }
+                    gb.setBoard(boardstate);
+                }
             }
+
             public void onSwipeLeft() {
-                Toast.makeText(Game.this, "left", Toast.LENGTH_SHORT).show();
+                char v = isValid(boardstate, "1");
+                if(v != 'N') {
+                    Board newstate = boardstate.move(v);
+                    if (newstate != null) {
+                        boardstate = newstate;
+                    }
+                    gb.setBoard(boardstate);
+                }
             }
+
             public void onSwipeBottom() {
-                Toast.makeText(Game.this, "bottom", Toast.LENGTH_SHORT).show();
+                char v = isValid(boardstate, "-4");
+                if(v != 'N') {
+                    Board newstate = boardstate.move(v);
+                    if (newstate != null) {
+                        boardstate = newstate;
+                    }
+                    gb.setBoard(boardstate);
+                };
             }
         });
 
-        Button solvebtn = (Button)findViewById(R.id.solve);
-        final TextView statusmsg = (TextView)findViewById(R.id.statusmsg);
+        Button solvebtn = (Button) findViewById(R.id.solve);
+        final TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
 
         solvebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +101,6 @@ public class Game extends AppCompatActivity{
         Log.d("debug", "BLANK INDEX: " + gb.blankIndex);*/
 
 
-
-
-
         //set grid onclick listeners
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -86,7 +112,7 @@ public class Game extends AppCompatActivity{
 
                     validMoves = boardstate.getMoves();
                 }*/
-                Board newstate = boardstate.move((char)position);
+                Board newstate = boardstate.move((char) position);
                 if (newstate != null) {
                     boardstate = newstate;
                 }
@@ -98,4 +124,16 @@ public class Game extends AppCompatActivity{
 
         });
     }
+
+    char isValid(Board boardstate, String s) {
+        for (char m : boardstate.getMoves()) {
+                int x = (int) boardstate.findEmpty() + Integer.parseInt(s);
+                if ((char) x == m) {
+                    return m;
+                }
+        }
+        return 'N';
+    }
+
+
 }
