@@ -155,6 +155,30 @@ public class Board implements Comparable<Board> {
         //return other.hamming() - hamming();
     }
 
+    public int hashCode() {
+        int hash = 0;
+
+        for(int i = 0; i < 16; i++) {
+            hash += (i+i)*state[i];
+        }
+
+        return hash;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof Board) {
+            Board b = (Board)o;
+            for(int i = 0; i < 16; i++) {
+                if (state[i] != b.state[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+
+    }
+
 
     public String toString() {
         return String.format(Locale.ENGLISH, "B[%2d %2d %2d %2d\n  %2d %2d %2d %2d\n  %2d %2d %2d %2d\n  %2d %2d %2d %2d]",
