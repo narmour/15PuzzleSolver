@@ -18,7 +18,7 @@ public class Game extends AppCompatActivity {
     // https://developer.android.com/guide/topics/ui/layout/gridview.html
 
     // the game board
-    private Board gb;
+    private BoardDrawable gb;
     private char[] boardstate = new char[16];
 
     private ArrayList<Integer> validMoves;
@@ -28,7 +28,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        gb = new Board(this);
+        gb = new BoardDrawable(this);
         //get tha grid view
         GridView gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(gb);
