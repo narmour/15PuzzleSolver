@@ -38,9 +38,9 @@ public class SolveThread implements Runnable {
             openset.remove(current);
             closedset.add(current);
 
-            /*if (!current.isSolvable()) {
+            if (!current.isSolvable()) {
                 continue;
-            }*/
+            }
 
             Log.d("solved", ""+ current.isSolved());
             if (current.isSolved()) {

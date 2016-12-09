@@ -7,9 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class BoardDrawable extends BaseAdapter {
+public class BoardDrawable extends BaseAdapter{
 
     //ADAPTER STUFF
     private Context mContext;
@@ -33,6 +34,7 @@ public class BoardDrawable extends BaseAdapter {
         board = b;
         notifyDataSetChanged();
     }
+
 
     //BASE ADAPTER FUNCTIONS
     public int getCount() {
