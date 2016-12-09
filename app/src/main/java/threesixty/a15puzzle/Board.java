@@ -145,14 +145,34 @@ public class Board implements Comparable<Board> {
         return n;
     }
 
+    int manhattan() {
+        int n = 0;
+        for(int i = 0; i < 16; i++) {
+            if (state[i] == 0) {
+                continue;
+            }
+
+            int actualrow =  i / 4;
+            int actualcol = i % 4;
+
+            int correctrow = (state[i]-1)/4;
+            int correctcol = (state[i]-1)%4;
+
+            n += Math.abs(correctrow-actualrow) + Math.abs(correctcol-actualcol);
+        }
+
+        return n;
+    }
+
     char at(int i) {
         return state[i];
     }
 
 
     public int compareTo(Board other) {
-        return hamming() - other.hamming();
+        //return hamming() - other.hamming();
         //return other.hamming() - hamming();
+        return manhattan() - other.manhattan();
     }
 
     public int hashCode() {
