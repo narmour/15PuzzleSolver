@@ -20,4 +20,9 @@ public class Startup extends AppCompatActivity {
         ft.addToBackStack("MMF");
         ft.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing!
+    }
 }

@@ -44,5 +44,4 @@ public class MainMenuFragment extends Fragment {
     }
 
 
-
 }
