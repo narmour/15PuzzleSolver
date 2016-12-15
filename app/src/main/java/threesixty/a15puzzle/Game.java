@@ -36,14 +36,6 @@ public class Game extends AppCompatActivity {
     private ShakeDetector mShakeDetector;
 
 
-
-
-    public void setSolution(ArrayList<Board> states) {
-        TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
-        statusmsg.setText("solved!");
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +103,10 @@ public class Game extends AppCompatActivity {
 
         Button resetbtn = (Button) findViewById(R.id.reset);
         Button solvebtn = (Button) findViewById(R.id.solve);
-        final TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
 
         solvebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statusmsg.setText("solving...");
                 ArrayList<Board> solution = new ArrayList<Board>();
 
                 //send boardstates to animation activity
