@@ -23,8 +23,11 @@ public class Game extends AppCompatActivity {
     // the game board
     private BoardDrawable gb;
     private Board boardstate = new Board();
+    private Board resetBoard;
     //private ArrayList<Integer> validMoves;
     private char[] validMoves;
+    private int numMoves;
+    private TextView t;
 
 
     //SHAKE DETECTION
@@ -46,6 +49,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         gb = new BoardDrawable(this);
+        t = (TextView) findViewById(R.id.moves);
         //get tha grid view
         GridView gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(gb);
@@ -53,6 +57,7 @@ public class Game extends AppCompatActivity {
         gridView.setHorizontalSpacing(0);
         gridView.setVerticalSpacing(0);
         gb.setBoard(boardstate);
+        resetBoard = new Board(boardstate);
 
         findViewById(android.R.id.content).setOnTouchListener(new OnSwipeListener(Game.this) {
             public void onSwipeTop() {
@@ -61,6 +66,7 @@ public class Game extends AppCompatActivity {
                     Board newstate = boardstate.move(v);
                     if (newstate != null) {
                         boardstate = newstate;
+                        change(1);
                     }
                     gb.setBoard(boardstate);
                 }
@@ -72,6 +78,7 @@ public class Game extends AppCompatActivity {
                     Board newstate = boardstate.move(v);
                     if (newstate != null) {
                         boardstate = newstate;
+                        change(1);
                     }
                     gb.setBoard(boardstate);
                 }
@@ -83,6 +90,7 @@ public class Game extends AppCompatActivity {
                     Board newstate = boardstate.move(v);
                     if (newstate != null) {
                         boardstate = newstate;
+                        change(1);
                     }
                     gb.setBoard(boardstate);
                 }
@@ -94,12 +102,14 @@ public class Game extends AppCompatActivity {
                     Board newstate = boardstate.move(v);
                     if (newstate != null) {
                         boardstate = newstate;
+                        change(1);
                     }
                     gb.setBoard(boardstate);
                 };
             }
         });
 
+        Button resetbtn = (Button) findViewById(R.id.reset);
         Button solvebtn = (Button) findViewById(R.id.solve);
         final TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
 
@@ -121,6 +131,15 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        resetbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                boardstate = resetBoard;
+                gb.setBoard(boardstate);
+                change(0);
+                gb.notifyDataSetChanged();
+            }
+        });
 
 
 
@@ -141,6 +160,8 @@ public class Game extends AppCompatActivity {
 				 */
                 //handleShakeEvent(count);
                 boardstate.scramble();
+                resetBoard = new Board(boardstate);
+                change(0);
                 gb.notifyDataSetChanged();
 
             }
@@ -172,6 +193,7 @@ public class Game extends AppCompatActivity {
                 Board newstate = boardstate.move((char) position);
                 if (newstate != null) {
                     boardstate = newstate;
+                    change(1);
                 }
                 gb.setBoard(boardstate);
 
@@ -190,6 +212,11 @@ public class Game extends AppCompatActivity {
                 }
         }
         return 'N';
+    }
+
+    void change(int i) {
+        numMoves = (i == 0) ? 0 : numMoves + i;
+        t.setText("Moves: " + String.valueOf(numMoves));
     }
 
     @Override

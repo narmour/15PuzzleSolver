@@ -30,4 +30,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/solve" />
+
+    <TextView
+        android:text="Moves: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moves"
+        android:layout_below="@+id/grid"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/solve"
+        android:layout_toEndOf="@+id/solve"
+        android:id="@+id/reset" />
 </RelativeLayout>
