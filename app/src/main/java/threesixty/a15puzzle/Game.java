@@ -36,6 +36,9 @@ public class Game extends AppCompatActivity {
         //get tha grid view
         GridView gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(gb);
+        //gridView.setStretchMode(GridVie);
+        gridView.setHorizontalSpacing(0);
+        gridView.setVerticalSpacing(0);
         gb.setBoard(boardstate);
 
         findViewById(android.R.id.content).setOnTouchListener(new OnSwipeListener(Game.this) {

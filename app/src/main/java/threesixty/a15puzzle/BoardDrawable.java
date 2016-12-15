@@ -56,9 +56,10 @@ public class BoardDrawable extends BaseAdapter{
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            //imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setAdjustViewBounds(true);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setPadding(0,0,0,0);
         } else {
             imageView = (ImageView) convertView;
         }
