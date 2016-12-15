@@ -130,6 +130,19 @@ public class Board implements Comparable<Board>, Serializable{
         return false;
     }
 
+    //scrambles up tha board
+    void scramble(){
+
+        //do 100 random moves
+        for(int i =0;i<100;i++){
+            //get moves for current board
+            char[] moves = getMoves();
+            //do a random move
+            state = move(moves[new Random().nextInt(moves.length)]).state;
+        }
+
+    }
+
     public boolean isSolved() {
         return hamming() == 0;
     }
@@ -171,6 +184,8 @@ public class Board implements Comparable<Board>, Serializable{
     char at(int i) {
         return state[i];
     }
+
+
 
 
     public int compareTo(Board other) {
