@@ -30,6 +30,10 @@ public class Board implements Comparable<Board>, Serializable{
         state = board;
     }
 
+    Board(Board board){
+        state = board.state.clone();
+    }
+
 
     // returns new board with move id being made on state.
     Board move(char id) {
