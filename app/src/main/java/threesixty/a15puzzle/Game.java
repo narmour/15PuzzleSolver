@@ -1,8 +1,12 @@
 package threesixty.a15puzzle;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,6 +25,15 @@ public class Game extends AppCompatActivity {
     private Board boardstate = new Board();
     //private ArrayList<Integer> validMoves;
     private char[] validMoves;
+
+
+    //SHAKE DETECTION
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+
+
+
 
     public void setSolution(ArrayList<Board> states) {
         TextView statusmsg = (TextView) findViewById(R.id.statusmsg);
@@ -106,6 +119,36 @@ public class Game extends AppCompatActivity {
         });
 
 
+
+
+        //SHAKE DETECTOR INITIALIZATION
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+				/*
+				 * The following method, "handleShakeEvent(count):" is a stub //
+				 * method you would use to setup whatever you want done once the
+				 * device has been shook.
+				 */
+                //handleShakeEvent(count);
+                boardstate.scramble();
+                gb.notifyDataSetChanged();
+
+            }
+
+
+        });
+
+
+
+
+
         // get valid moves
         /*validMoves =gb.getMoves();
         Log.d("debug",Integer.toString(validMoves.get(0)));
@@ -144,6 +187,20 @@ public class Game extends AppCompatActivity {
                 }
         }
         return 'N';
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
 
