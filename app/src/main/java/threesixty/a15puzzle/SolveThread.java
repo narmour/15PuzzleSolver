@@ -1,5 +1,6 @@
 package threesixty.a15puzzle;
 
+import android.os.Handler;
 import android.util.Log;
 
 import java.lang.Runnable;
@@ -16,11 +17,31 @@ import static android.os.Build.VERSION_CODES.M;
 
 public class SolveThread implements Runnable {
     Board board;
-    Game game;
-    SolveThread(Game g, Board b) {
-        game = g;
+    Animation anim;
+    Handler handler;
+    Animation.ThreadProgressRunnable callback;
+    SolveThread(Animation a, Board b, Handler h, Animation.ThreadProgressRunnable r) {
+        anim = a;
         board = b;
+        handler = h;
+        callback = r;
     }
+
+    private void notifyActivity(Board board, HashMap<Board, Board> camefrom) {
+        ArrayList<Board> result = new ArrayList<>();
+        result.add(board);
+        while (camefrom.containsKey(board)) {
+            board = camefrom.get(board);
+            result.add(board);
+        }
+
+        callback.setBoards(result);
+        handler.post(callback);
+        //return result;
+        //callback.setBoards(result);
+        //callback.run();
+    }
+
 
     private ArrayList<Board> solveBoard(Board start) {
         PriorityQueue<Board> openset = new PriorityQueue<>();
@@ -32,7 +53,7 @@ public class SolveThread implements Runnable {
         //gscore.put(start, 0);
 
 
-        while (!openset.isEmpty()) {
+        while (!openset.isEmpty() && !Thread.currentThread().isInterrupted()) {
             Board current = openset.peek();
             Log.d("a* current", current.toString());
             openset.remove(current);
@@ -41,6 +62,8 @@ public class SolveThread implements Runnable {
             if (!current.isSolvable()) {
                 continue;
             }
+
+            notifyActivity(current, camefrom);
 
             Log.d("solved", ""+ current.isSolved());
             if (current.isSolved()) {
@@ -53,6 +76,8 @@ public class SolveThread implements Runnable {
 
                 return result;
             }
+
+            // aaa
 
             Log.d("moves", ""+ current.getMoves().length);
             for(char move : current.getMoves()) {
@@ -70,7 +95,7 @@ public class SolveThread implements Runnable {
             }
         }
 
-        return null;
+        return new ArrayList<Board>();
     }
 
     @Override

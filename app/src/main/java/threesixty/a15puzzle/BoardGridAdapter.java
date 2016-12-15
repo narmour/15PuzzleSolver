@@ -20,11 +20,11 @@ import java.util.Arrays;
 
 public class BoardGridAdapter extends BaseAdapter {
     //final int BITMAPSIZE = 500*4; // 500 is size of tile images
-    ArrayList<Board> boards;
-    Context ctx;
+    private ArrayList<Board> boards = new ArrayList<>();
+    private Context ctx;
 
     //private int[] tilebmp = new int[16];
-    ArrayList<Bitmap> tilebmp = new ArrayList<>();
+    private ArrayList<Bitmap> tilebmp = new ArrayList<>();
 
     BoardGridAdapter(Context c) {
         ctx = c;
@@ -66,6 +66,7 @@ public class BoardGridAdapter extends BaseAdapter {
 
     void setBoards(ArrayList<Board> b) {
         boards = b;
+        notifyDataSetChanged();
     }
 
     public int getCount() {
