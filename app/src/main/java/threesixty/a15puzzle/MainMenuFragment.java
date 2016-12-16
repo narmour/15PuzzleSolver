@@ -11,6 +11,8 @@ import android.widget.Button;
 
 public class MainMenuFragment extends Fragment {
     private Button playButton;
+    private Button setupButton;
+
 
 
     public MainMenuFragment() {
@@ -25,6 +27,7 @@ public class MainMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
         //set the buttons
         playButton = (Button)view.findViewById(R.id.playButton);
+        setupButton = (Button)view.findViewById(R.id.setupButton);
 
 
         // set on click listeners
@@ -34,6 +37,13 @@ public class MainMenuFragment extends Fragment {
                 Intent i = new Intent(getActivity(),Game.class);
                 startActivity(i);
 
+            }
+        });
+
+        setupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),Setup.class));
             }
         });
 

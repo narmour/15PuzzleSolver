@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 
 public class Startup extends AppCompatActivity {
 
@@ -19,5 +20,10 @@ public class Startup extends AppCompatActivity {
         ft.replace(R.id.fragment_container, MMF, null);
         ft.addToBackStack("MMF");
         ft.commit();
+
+
+
+
+
     }
 }

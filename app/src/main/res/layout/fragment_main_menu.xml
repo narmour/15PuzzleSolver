@@ -11,4 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/playButton" />
+
+    <Button
+        android:text="Board Setup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/setupButton"
+        android:translationX="100dp" />
 </FrameLayout>

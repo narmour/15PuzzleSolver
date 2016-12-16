@@ -34,6 +34,25 @@ public class Board implements Comparable<Board>, Serializable{
         state = board.state.clone();
     }
 
+    // returns index of tile with value v
+    int valueAt(int v){
+        for(int i =0; i <16;i++){
+            if(state[i] == v)
+                return i;
+        }
+
+        return -1;
+
+    }
+
+    public char[] getState(){
+        return state;
+    }
+
+    public void setState(char[] s){
+        state =s;
+    }
+
 
     // returns new board with move id being made on state.
     Board move(char id) {
