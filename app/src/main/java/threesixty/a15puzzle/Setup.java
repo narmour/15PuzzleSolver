@@ -1,5 +1,6 @@
 package threesixty.a15puzzle;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 public class Setup extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -16,20 +18,12 @@ public class Setup extends AppCompatActivity implements PopupMenu.OnMenuItemClic
     BoardDrawable gb = new BoardDrawable(this);
     Board b = new Board();
 
+
+    private Button playButton;
+
     private int pos;
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        Log.d("onprepareoptions" , "yo");
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.setup, menu);
-        for(int i =0;i<15;i++) {
-            menu.add(String.format("%d", i));
-        }
 
-        return true;
-    }
 
 
     @Override
@@ -56,6 +50,18 @@ public class Setup extends AppCompatActivity implements PopupMenu.OnMenuItemClic
 
         gb.setBoard(b);
 
+
+        //set the playbutton
+        playButton = (Button)findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Setup.this,Game.class);
+                i.putExtra("state",b.getState());
+                startActivity(i);
+
+            }
+        });
 
 
 

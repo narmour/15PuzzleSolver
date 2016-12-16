@@ -51,6 +51,12 @@ public class Game extends AppCompatActivity {
         gb.setBoard(boardstate);
         resetBoard = new Board(boardstate);
 
+        //check for custom state
+        if(getIntent().hasExtra("state")) {
+            char[] customState = getIntent().getExtras().getCharArray("state");
+            boardstate.setState(customState);
+        }
+
         findViewById(android.R.id.content).setOnTouchListener(new OnSwipeListener(Game.this) {
             public void onSwipeTop() {
                 char v = isValid(boardstate, "4");
