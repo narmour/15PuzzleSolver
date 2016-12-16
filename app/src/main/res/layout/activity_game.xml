@@ -26,12 +26,6 @@
         android:text="Solve" />
 
     <TextView
-        android:id="@+id/statusmsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/solve" />
-
-    <TextView
         android:text="Moves: 0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

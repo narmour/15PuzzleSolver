@@ -25,16 +25,17 @@ public class Animation extends AppCompatActivity {
         setContentView(R.layout.activity_animation);
 
 
+
         final BoardGridAdapter boardgrid = new BoardGridAdapter(this);
 
         Board boardstate = (Board)getIntent().getSerializableExtra("b");
 
         final Handler handler = new Handler();
         final ThreadProgressRunnable threadProgress = new ThreadProgressRunnable() {
-            private ArrayList<Board> bs;
             @Override
             public void run() {
                 boardgrid.setBoards(boards);
+                setTitle("solving, " + boards.size() + " moves");
             }
         };
 

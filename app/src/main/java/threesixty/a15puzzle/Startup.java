@@ -26,4 +26,9 @@ public class Startup extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing!
+    }
 }
