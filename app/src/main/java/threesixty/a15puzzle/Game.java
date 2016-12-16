@@ -55,6 +55,7 @@ public class Game extends AppCompatActivity {
         if(getIntent().hasExtra("state")) {
             char[] customState = getIntent().getExtras().getCharArray("state");
             boardstate.setState(customState);
+            resetBoard = new Board(boardstate);
         }
 
         findViewById(android.R.id.content).setOnTouchListener(new OnSwipeListener(Game.this) {

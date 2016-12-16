@@ -9,13 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="threesixty.a15puzzle.Setup">
 
-    <Button
-        android:text="Play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/playButton"
-        android:translationY="600dp" />
-
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,4 +16,13 @@
         android:id="@+id/grid"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid"
+        android:layout_alignParentStart="true"
+        android:id="@+id/playButton" />
+
 </RelativeLayout>
